@@ -1,0 +1,57 @@
+diff --git a/ThirdParty/bsp/freertos10_xilinx/data/freertos10_xilinx.tcl b/ThirdParty/bsp/freertos10_xilinx/data/freertos10_xilinx.tcl
+index 4c497b3450..861d244c16 100644
+--- a/ThirdParty/bsp/freertos10_xilinx/data/freertos10_xilinx.tcl
++++ b/ThirdParty/bsp/freertos10_xilinx/data/freertos10_xilinx.tcl
+@@ -729,7 +729,7 @@ proc generate {os_handle} {
+ 
+ 
+ 	xput_define $config_file "configUSE_16_BIT_TICKS"		   "0"
+-	xput_define $config_file "configUSE_APPLICATION_TASK_TAG"   "0"
++	xput_define $config_file "configUSE_APPLICATION_TASK_TAG"   "1"
+ 	xput_define $config_file "configUSE_CO_ROUTINES"			"0"
+ 
+ 	set tick_rate [common::get_property CONFIG.tick_rate $os_handle]
+diff --git a/ThirdParty/bsp/freertos10_xilinx/src/Source/include/FreeRTOS.h b/ThirdParty/bsp/freertos10_xilinx/src/Source/include/FreeRTOS.h
+index 383f04a70a..6516538c6f 100644
+--- a/ThirdParty/bsp/freertos10_xilinx/src/Source/include/FreeRTOS.h
++++ b/ThirdParty/bsp/freertos10_xilinx/src/Source/include/FreeRTOS.h
+@@ -217,7 +217,7 @@
+ #endif
+ 
+ #ifndef configUSE_APPLICATION_TASK_TAG
+-    #define configUSE_APPLICATION_TASK_TAG    0
++    #define configUSE_APPLICATION_TASK_TAG    1
+ #endif
+ 
+ #ifndef configNUM_THREAD_LOCAL_STORAGE_POINTERS
+@@ -863,7 +863,7 @@
+ #endif
+ 
+ #ifndef configUSE_PORT_OPTIMISED_TASK_SELECTION
+-    #define configUSE_PORT_OPTIMISED_TASK_SELECTION    0
++    #define configUSE_PORT_OPTIMISED_TASK_SELECTION    1
+ #endif
+ 
+ #ifndef configAPPLICATION_ALLOCATED_HEAP
+@@ -883,7 +883,7 @@
+ #endif
+ 
+ #ifndef configUSE_POSIX_ERRNO
+-    #define configUSE_POSIX_ERRNO    0
++    #define configUSE_POSIX_ERRNO    1
+ #endif
+ 
+ #ifndef portTICK_TYPE_IS_ATOMIC
+diff --git a/ThirdParty/sw_services/lwip211/src/lwip-2.1.1/src/include/lwip/opt.h b/ThirdParty/sw_services/lwip211/src/lwip-2.1.1/src/include/lwip/opt.h
+index 3957dc702c..94c421c44a 100644
+--- a/ThirdParty/sw_services/lwip211/src/lwip-2.1.1/src/include/lwip/opt.h
++++ b/ThirdParty/sw_services/lwip211/src/lwip-2.1.1/src/include/lwip/opt.h
+@@ -1096,7 +1096,7 @@
+  * transport.
+  */
+ #if !defined LWIP_DNS || defined __DOXYGEN__
+-#define LWIP_DNS                        0
++#define LWIP_DNS                        1
+ #endif
+ 
+ /** DNS maximum number of entries to maintain locally. */

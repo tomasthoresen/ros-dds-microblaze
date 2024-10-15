@@ -1,0 +1,26 @@
+diff --git a/lib/sw_apps/zynqmp_fsbl/src/xfsbl_config.h b/lib/sw_apps/zynqmp_fsbl/src/xfsbl_config.h
+index d6d8dc231f..0b65ed9c8f 100644
+--- a/lib/sw_apps/zynqmp_fsbl/src/xfsbl_config.h
++++ b/lib/sw_apps/zynqmp_fsbl/src/xfsbl_config.h
+@@ -191,6 +191,10 @@ extern "C" {
+ #define FSBL_PARTITION_LOAD_EXCLUDE_VAL (0U)
+ #endif
+ 
++#ifndef BOOTJTAG_VAL
++#define BOOTJTAG_VAL (1U)
++#endif
++
+ #ifndef FSBL_FORCE_ENC_EXCLUDE_VAL
+ #define FSBL_FORCE_ENC_EXCLUDE_VAL		(0U)
+ #endif
+@@ -264,6 +268,10 @@ extern "C" {
+ #define FSBL_PARTITION_LOAD_EXCLUDE
+ #endif
+ 
++#if (BOOTJTAG_VAL)
++#define BOOTJTAG
++#endif
++
+ #if (FSBL_FORCE_ENC_EXCLUDE_VAL) && (!defined(FSBL_FORCE_ENC_EXCLUDE))
+ #define FSBL_FORCE_ENC_EXCLUDE
+ #endif

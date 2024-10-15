@@ -1,0 +1,29 @@
+diff --git a/ThirdParty/sw_services/lwip211/src/contrib/ports/xilinx/netif/xemacpsif_physpeed.c b/ThirdParty/sw_services/lwip211/src/contrib/ports/xilinx/netif/xemacpsif_physpeed.c
+index 406d0b8afc..d705d02943 100644
+--- a/ThirdParty/sw_services/lwip211/src/contrib/ports/xilinx/netif/xemacpsif_physpeed.c
++++ b/ThirdParty/sw_services/lwip211/src/contrib/ports/xilinx/netif/xemacpsif_physpeed.c
+@@ -284,6 +284,16 @@ void detect_phy(XEmacPs *xemacpsp)
+ 	u32_t phy_addr;
+ 	u32_t emacnum;
+ 
++#ifdef AMD_KR260
++
++    if (xemacpsp->Config.BaseAddress == XPAR_XEMACPS_0_BASEADDR)
++    {    
++        phymapemac0[4] = TRUE;
++    }else {
++        phymapemac1[8] = TRUE;
++    }    
++#else
++
+ 	if (xemacpsp->Config.BaseAddress == XPAR_XEMACPS_0_BASEADDR)
+ 		emacnum = 0;
+ 	else
+@@ -311,6 +321,7 @@ void detect_phy(XEmacPs *xemacpsp)
+ 			}
+ 		}
+ 	}
++#endif
+ }
+ 
+ u32_t phy_setup_emacps (XEmacPs *xemacpsp, u32_t phy_addr)

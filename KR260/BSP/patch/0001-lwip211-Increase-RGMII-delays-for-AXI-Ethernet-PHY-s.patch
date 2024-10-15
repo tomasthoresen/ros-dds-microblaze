@@ -1,0 +1,32 @@
+From 1acf080aa623cb81d5ed996f7829a8ddf92f24fc Mon Sep 17 00:00:00 2001
+From: Harini Katakam <harini.katakam@amd.com>
+Date: Wed, 17 Apr 2024 13:04:18 +0530
+Subject: [PATCH] lwip211: Increase RGMII delays for AXI Ethernet PHY setup
+
+Increase RGMII TX and RX delay values for TI DP83867 phy in
+AXI Ethernet lwip adapter code.
+
+Signed-off-by: Harini Katakam <harini.katakam@amd.com>
+---
+ .../src/contrib/ports/xilinx/netif/xaxiemacif_physpeed.c      | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/ThirdParty/sw_services/lwip211/src/contrib/ports/xilinx/netif/xaxiemacif_physpeed.c b/ThirdParty/sw_services/lwip211/src/contrib/ports/xilinx/netif/xaxiemacif_physpeed.c
+index 832149bcbe..74c873ace9 100644
+--- a/ThirdParty/sw_services/lwip211/src/contrib/ports/xilinx/netif/xaxiemacif_physpeed.c
++++ b/ThirdParty/sw_services/lwip211/src/contrib/ports/xilinx/netif/xaxiemacif_physpeed.c
+@@ -53,8 +53,8 @@
+ #define TI_PHY_IDENTIFIER 						0x2000
+ #define TI_PHY_DP83867_MODEL					0xA231
+ #define DP83867_RGMII_CLOCK_DELAY_CTRL_MASK		0x0003
+-#define DP83867_RGMII_TX_CLOCK_DELAY_MASK		0x0030
+-#define DP83867_RGMII_RX_CLOCK_DELAY_MASK		0x0003
++#define DP83867_RGMII_TX_CLOCK_DELAY_MASK		0x00A0
++#define DP83867_RGMII_RX_CLOCK_DELAY_MASK		0x000B
+ 
+ /* TI DP83867 PHY Registers */
+ #define DP83867_R32_RGMIICTL1					0x32
+-- 
+2.17.1
+
+

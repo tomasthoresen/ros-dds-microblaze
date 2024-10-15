@@ -1,0 +1,16 @@
+diff --git a/lib/sw_apps/zynqmp_fsbl/src/xfsbl_initialization.c b/lib/sw_apps/zynqmp_fsbl/src/xfsbl_initialization.c
+index e81e210e59..a11555e477 100644
+--- a/lib/sw_apps/zynqmp_fsbl/src/xfsbl_initialization.c
++++ b/lib/sw_apps/zynqmp_fsbl/src/xfsbl_initialization.c
+@@ -908,6 +908,11 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
+ 	Status = XFSBL_STATUS_JTAG;
+ #else
+ 
++#ifdef BOOTJTAG
++	BootMode = XFSBL_JTAG_BOOT_MODE;
++	XFsbl_Printf(DEBUG_GENERAL, "FSBL FORCED TO JTAG with BOOTJTAG flag set\n\r");
++#endif
++
+ 	switch(BootMode)
+ 	{
+ 		/**
