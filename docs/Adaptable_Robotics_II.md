@@ -6,7 +6,7 @@
 
 
 
-docker run -it --rm --net=host microros/micro-ros-agent:humble udp4 -p 8888
+
 
 
 
@@ -48,7 +48,9 @@ Following this tutorial, you should be able to put together a system containing 
 
 This is what the final result should look like when you have gone through this tutorial.
 
-
+<video width="640" height="480" controls autoplay loop muted>
+  <source src="../docs/images/MicroROSonMicroBlaze.mp4" type="video/mp4">
+</video>
 
 https://media.gitenterprise.xilinx.com/user/485/files/d6115c1a-1813-43ac-8c87-86b11844771b
 
@@ -64,35 +66,39 @@ https://media.gitenterprise.xilinx.com/user/485/files/d6115c1a-1813-43ac-8c87-86
 
 ### **Description**:
 
-The following information describes how to build static Micro-ROS images for the ARM Cortex R5 and the soft MicroBlaze CPU.
+The following information describes how to build static Micro-ROS images for the soft MicroBlaze CPU. The same concept can be done with the ARM Cortex R5 as well.
 
 These instructions are based on eProsima's documentation, located here:
 
 [micro-ROS for AMD Vitis](https://github.com/micro-ROS/micro_ros_vitis_component)
 
-Follow the instructions in the link above to build the static Micro-ROS images for the ARM Cortex R5 and the soft MicroBlaze CPU.
+Follow the instructions in the link above to build the static Micro-ROS images for the soft MicroBlaze CPU.
 
 
 ### **Import Micro-ROS application for MicroBlaze**
 
-The instructions above should result in static Micro-ROS libraries. Copy the static Micro-ROS files to the build system located here: *ros-dds-microblaze/KR260/example/MB/lib/microroslibs*
+The instructions above should result in static Micro-ROS libraries. Copy the static Micro-ROS files to the build system located here: *ros-dds-microblaze/KR260/examples/MB/lib/microroslibs/microros*
 
 ```
-$ dir ros-dds-microblaze/KR260/example/MB/lib/microroslibs/
+$ dir ros-dds-microblaze/KR260/examples/MB/lib/microroslibs/microros
 drwxr-xr-x 45 xde xde 5 14:45 include
 -rw-r--r--  1 xde xde 5 14:45 libmicroros.a
 ```
 
-Create and copy the Vivado **kr260_4mb_4pmod** project platform to the build system located here: (*ros-dds-microblaze/KR260/platforms/*) I.e.
-
-```
-$ cp -r (path)/kria-vitis-platforms/kr260/platforms/xilinx_kr260_4mb_4pmod_202210_1 (path)/ros-dds-microblaze/KR260/platforms/
-```
+From Tutorial  [AMD Kria:tm: adaptable Robotics I – The right engine for the right task.](../docs/Adaptable_Robotics_I.md) the following should already be there:
 
 ```
 $ dir ros-dds-microblaze/KR260/platforms/
 drwxr-xr-x 4 tomast tomast 4096 Jan 16 09:56 xilinx_kr260_4mb_4pmod_202210_1
 ```
+```
+ dir ros-dds-microblaze/KR260/BSP/
+total 12
+drwxr-xr-x 3 tomast tomast 4096 Oct 17 11:56 embeddedsw
+-rw-r--r-- 1 tomast tomast  836 Oct 17 09:50 Makefile
+drwxr-xr-x 2 tomast tomast 4096 Oct 17 09:50 patch
+```
+
 
 Build the Micro-ROS applications. (Make sure you have sourced Vitis version 2022.1)
 
@@ -106,13 +112,19 @@ MB0_MicroROS is set to "192.168.2.170", and MB1_MicroROS is set to "192.168.2.16
 
 
 After building the applications, the result are two projects, one for MicroBlaze #0 and one for MicroBlaze #1. As can be seen in the picture below. 
+
 ![Alt text](../docs/images/vitis_explorer.png)
 
-Copy the two elf files to Ubuntu running on the KR260 board.
+Copy the two elf files to Ubuntu running on the KR260 board. I.e.
 
 ```
-cp pub_Int_MB0.elf /lib/firmware
-cp pub_Int_MB1.elf /lib/firmware
+scp MicroROS_example_MB0.elf MicroROS_example_MB1.elf ubuntu@192.168.2.137:/tmp
+```
+
+On the target board (KR260) do the following:
+```
+cp /tmp/MicroROS_example_MB0.elf /lib/firmware
+cp /tmp/MicroROS_example_MB1.elf /lib/firmware
 ```
 
 To start Vitis on the workspace created, type the following:
@@ -124,29 +136,48 @@ vitis --workspace ./vitis_kr260_MB_ws
 
 Finally we want to load and run the MicroBlaze code on the softcores. To do that follow these instructions.
 
+The MicroROS applications need a MicroROS server to connect to, please follow these instructions to run the MicroROS agent, and start the agent on a different x86 machine. https://hub.docker.com/r/microros/micro-ros-agent
 
+```
+docker run -it --rm --net=host microros/micro-ros-agent:humble udp4 -p 8888
+```
 
-Copy the files needed to the development board, if not already there.
-(To get these files, the user will need to follow the example-print tutorial)
+Copy the below files needed to the development board, if not already there.
+To get these files, the user will need to follow the tutorial - [AMD Kria:tm: adaptable Robotics I – The right engine for the right task.](../docs/Adaptable_Robotics_I.md)
 
-* FPGA binary file - kr260_4mb_4pmod.bit.bin
-* MicroBlaze kernel driver *.ko file.(should be on the target already)
+* FPGA binary file - kr260_4mb_4pmod.bin
+* Device tree overlay - kr260_4mb_4pmod.dtbo
+* XMUTIL metadata - shell.json
+* MicroBlaze kernel driver *.ko file. (should be on the target already)
 * MicroBlaze executable
-
-
 
 On the board, do the following to load the remoteproc feature. (replace with your filenames should they be different)
 
 ```
-fpgautil -b kr260_4mb_4pmod.bit.bin
-insmod mb_kernel_driver.ko
+xmutil unloadapp
+xmutil loadapp kr260_4mb_4pmod
+insmod mb_remoteproc.ko
 ```
 
 Load the MicroBlaze application #0
 
 ```
-cp pub_Int_MB0.elf /lib/firmware
-echo pub_Int_MB0.elf > /sys/class/remoteproc/remoteproc1/firmware
+cp MicroROS_example_MB0.elf /lib/firmware
+echo MicroROS_example_MB0.elf > /sys/class/remoteproc/remoteproc0/firmware
+```
+
+Start and stop the MicroBlaze application
+
+```
+echo start > /sys/class/remoteproc/remoteproc0/state
+echo stop > /sys/class/remoteproc/remoteproc0/state
+```
+
+Load the MicroBlaze application #1
+
+```
+cp MicroROS_example_MB1.elf /lib/firmware
+echo MicroROS_example_MB1.elf > /sys/class/remoteproc/remoteproc1/firmware
 ```
 
 Start and stop the MicroBlaze application
@@ -156,25 +187,13 @@ echo start > /sys/class/remoteproc/remoteproc1/state
 echo stop > /sys/class/remoteproc/remoteproc1/state
 ```
 
-Load the MicroBlaze application #1
-
-```
-cp pub_Int_MB1.elf /lib/firmware
-echo pub_Int_MB1.elf > /sys/class/remoteproc/remoteproc2/firmware
-```
-
-Start and stop the MicroBlaze application
-
-```
-echo start > /sys/class/remoteproc/remoteproc2/state
-echo stop > /sys/class/remoteproc/remoteproc2/state
-```
-
 
 
 In the end, this is what it should look like. Hope you made it this far! Thanks for trying this out, I hope it will help in your future endeavors.
 
-
+<video width="640" height="480" controls autoplay loop muted>
+  <source src="../docs/images/MicroROSonMicroBlaze2.mp4" type="video/mp4">
+</video>
 
 https://media.gitenterprise.xilinx.com/user/485/files/fb0f58d9-c898-4475-aab5-a43534f3ffaf
 

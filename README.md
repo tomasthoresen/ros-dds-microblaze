@@ -50,9 +50,20 @@ The following is a conceptual picture of the Kria:tm: K26 System On Module(SOM) 
 
 Functionality reached from tutorial #1 can be seen in the video below.
 
+<video width="640" height="480" controls autoplay loop muted>
+  <source src="docs/images/2024-10-11.mp4" type="video/mp4">
+</video>
+
+
 https://media.gitenterprise.xilinx.com/user/485/files/b90e8072-9ddb-43ad-859d-eb5b82b5e1f1
 
 Functionality reached from tutorial #2 can be seen in the video below.
+
+
+<video width="640" height="480" controls autoplay loop muted>
+  <source src="docs/images/MicroROSonMicroBlaze2.mp4" type="video/mp4">
+</video>
+
 
 https://media.gitenterprise.xilinx.com/user/485/files/d6115c1a-1813-43ac-8c87-86b11844771b
 

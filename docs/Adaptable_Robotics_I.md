@@ -35,11 +35,13 @@ Whats needed for this Tutorial.
 * Four(4) USBtoTTL connector - At least one to get started
 * Ethernet connected to board - use GEM0 (see picture below)
 * License for the TEMAC block in the FPGA
+    *  https://www.xilinx.com/products/intellectual-property/temac.html
+
 
 <br>
 
 
-**IMPORTANT:There is no special license for the AXI Ethernet Subsystem, but there is a license for the TEMAC core and the optional Ethernet AVB feature. More details related to licensing of the TEMAC core can be found in the Tri-Mode Ethernet MAC Product Guide (PG138). https://docs.amd.com/r/en-US/pg138-axi-ethernet**
+**IMPORTANT: The "Tri-Mode Ethernet Media Access Controller (TEMAC)" needs a license. For more information and evaluation, more information can be found here - https://www.xilinx.com/products/intellectual-property/temac.html**
 
 
 <br>
@@ -83,13 +85,6 @@ https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/1641152513/Kria+SOMs+Start
 
 Clone the hardware platform and build for the xlnx_rel_v2022.1 branch.
 
-
-internal
-```
-git clone --recursive -b release-2022.1 https://gitenterprise.xilinx.com/IVH/kria-vitis-platforms
-```
-
-external
 ```
 git clone --recursive -b xlnx_rel_v2022.1 https://github.com/Xilinx/kria-vitis-platforms
 ```
@@ -119,11 +114,11 @@ When finished building, locate the kr260_4mb_4pmod_wrapper.bin that was created 
 scp kr260_4mb_4pmod_wrapper.bin ubuntu@192.168.2.155:/tmp
 ```
 
-*Note - The design includes the Tri-Mode Ethernet Media Access Controller (TEMAC) and it requires a license. Without this license the design will not build.
+*Note - The design includes the Tri-Mode Ethernet Media Access Controller (TEMAC) and it requires a license. Without this license the design will not build. See link above to get an evaluation license.
 
 ### **Modify device tree image**
 
-To prepare for OpenAMP's remoteproc applications, we will need to reserve some memory and inform Ubuntu about the MicroBlaze Bram controllers. MicroBlaze Bram controller is used to hold the MicroBlaze boot vector executable software. Furthermore, MicroBlaze is the soft CPU in the FPGA, and Bram is the local memory for the CPU.
+To prepare for OpenAMP's remoteproc applications, we will need to reserve some memory and inform Ubuntu about the MicroBlaze BRAM controllers. MicroBlaze BRAM controller is used to hold the MicroBlaze boot vector executable software. Furthermore, MicroBlaze is the soft CPU in the FPGA, and BRAM is the local memory for the CPU.
 
 
 Do the following to extract the devicetree from Ubuntu.
@@ -139,7 +134,7 @@ Find the following node and insert the following code below this node.
                 #address-cells = <0x02>;
                 #size-cells = <0x02>;
                 ranges;
-
+    
                 pmu@7ff00000 {
                         reg = <0x00 0x7ff00000 0x00 0x100000>;
                         no-map;
@@ -506,7 +501,11 @@ Open the overlay/pl.dtsi file and add the following code. I.e.
 ```
 vi overlay/pl.dtsi
 ```
-Add the code in between the "--- add code start ---" and "--- add code end ---" tags. Do not include the tags in the file.
+Add the code in between the **"--- add code start ---"** and **"--- add code end ---"** tags. Do not include the tags in the file.
+
+<details>
+<summary>Overlay modifications -> Click to expand!</summary>
+
 
 ```
 /*
@@ -597,6 +596,7 @@ gic: interrupt-controller@f9010000 {
 
 ```
 
+</details>
 
 Save the file and then compile the new pl.dtsi file to a pl.dtbo file.
 
@@ -605,7 +605,7 @@ dtc -@ -O dtb -o pl.dtbo overlay/pl.dtsi
 ```
 The above command should result in a new file called "pl.dtbo" in the current directory.
 
-Create a new directory on the board(KR260) called "kr260_4mb_4pmod" at the following location "/lib/firmware/xilinx", the result will be (/lib/firmware/xilinx/kr260_4mb_4pmod). Then copy the pl.dtbo file to the directory and rename it to kr260_4mb_4pmod.dtbo.
+Create a new directory on the board(KR260) called **"kr260_4mb_4pmod"** at the following location **"/lib/firmware/xilinx"**, the result will be (/lib/firmware/xilinx/kr260_4mb_4pmod). Then copy the pl.dtbo file to the directory and rename it to **kr260_4mb_4pmod.dtbo**.
 
 
 ```
@@ -628,14 +628,14 @@ In the same directory, create a file called "shell.json" and add the following c
 }
 ```
 
-Last but not least, copy the vivado project *.bin file to the /lib/firmware/xilinx/kr260_4mb_4pmod directory. I.e.
+Last but not least, copy the vivado project *.bin file to the /lib/firmware/xilinx/kr260_4mb_4pmod directory and rename it. I.e.
 
 ```
 scp kr260_4mb_4pmod_wrapper.bin ubuntu@<ip_address>:/tmp
 cp /tmp/kr260_4mb_4pmod_wrapper.bin /lib/firmware/xilinx/kr260_4mb_4pmod/kr260_4mb_4pmod.bin
 ```
 
-At the end you should have the following files in the /lib/firmware/xilinx/kr260_4mb_4pmod directory, all with the same name, execpt the shell.json file.
+At the end you should have the following files in the **/lib/firmware/xilinx/kr260_4mb_4pmod** directory, all with the same name, execpt the shell.json file.
 
 ```
 root@kria:/lib/firmware/xilinx/kr260_4mb_4pmod# ls -l
@@ -679,7 +679,7 @@ Build the Linux kernel driver on the target board (KR260).
 
 
 
-Here is the kernel driver. Create a directory in the root folder and copy the code to a file called "mb_remoteproc.c".
+Here is the kernel driver. Create a directory in the root folder and copy the code to a file called "mb_remoteproc.c" and "Makefile" respectively.
 
 
 <details>
@@ -1009,7 +1009,7 @@ This should result in a file called "mb_remoteproc.ko" in the current directory.
 Clone the repository and build the MicroBlaze executables. At this stage, this step might already be done. If so, please ignore this step.
 
 ```
-git clone --recursive https://gitenterprise.xilinx.com/IVH/ros-dds-microblaze.git
+git clone --recursive https://gitenterprise.xilinx.com/SOM/ros-dds-microblaze
 ```
 Source the Vitis build environment
 
@@ -1084,16 +1084,16 @@ USBTTL power 3.3v -> DO NOT CONNECT!
 
 <br>
 
-Before running the MicroBlaze executables, the devicetree overlay and the FPGA binary file must be loaded.
+Before running the MicroBlaze executables, the devicetree overlay and the FPGA binary file must be loaded, along with the kernel driver.
 
-Become root, on the target(KR260), and load the kernel driver.
+Become root, on the target(KR260).
 ```bash
 sudo su
 ```
 Unload any app that is already loaded.The loaded app would would display as a zero(0) at the #slots. Unloaded apps would show a minus one (-1). I.e.
 ```
-root@kria:~# xmutil unloadapp k26*
-remove from slot k26* returns: 0 (Ok)
+root@kria:~# xmutil unloadapp
+remove from slot returns: 0 (Ok)
 root@kria:~#
 ```
 
@@ -1112,7 +1112,7 @@ insmod mb_remoteproc.ko
 ```
 Now the system should be ready to run the MicroBlaze executables.
 
-Copy the MicroBlaze executables to the remoteproc directory on the target(KR260 board).
+Copy the MicroBlaze executables to the remoteproc directory **lib/firmware** on the target(KR260 board).
 
 ```bash
 cp /tmp/MB0_print.elf /lib/firmware
@@ -1162,7 +1162,7 @@ In the end, this is what it should look like. Hope you made it this far! Thanks 
 https://media.gitenterprise.xilinx.com/user/485/files/b90e8072-9ddb-43ad-859d-eb5b82b5e1f1
 
 <video width="640" height="480" controls autoplay loop muted>
-  <source src="../docs/images/video.mp4" type="video/mp4">
+  <source src="../docs/images/2024-10-10.mp4" type="video/mp4">
 </video>
 
 
@@ -1186,7 +1186,7 @@ https://media.gitenterprise.xilinx.com/user/485/files/b90e8072-9ddb-43ad-859d-eb
 
 ![](../docs/images/io_switch.png)
 
-
+Modification can be done in the Vivado Project.
 
 ### GEM's SLOTS
 
@@ -1206,7 +1206,7 @@ https://media.gitenterprise.xilinx.com/user/485/files/b90e8072-9ddb-43ad-859d-eb
 
 ### USB TO TTL example hardware
 
-Connect RX and TX to the oposite on the PMOD.
+Connect RX and TX to the opposite on the PMOD.
 
 ```
 USBTTL TX -> PMOD RX
@@ -1221,11 +1221,6 @@ USBTTL power 3.3v -> DO NOT CONNECT!
 
 
 <video width="640" height="480" controls autoplay loop muted>
-  <source src="https://gitlab.com/AMD-IVH/amd-robotics/microros/docs/-/blob/kd240/docs/images/video.mp4" type="video/mp4">
+  <source src="../docs/images/2024-10-11.mp4" type="video/mp4">
 </video>
 
-
-
-<video width="640" height="480" controls autoplay loop muted>
-  <source src="../docs/images/video.mp4" type="video/mp4">
-</video>
