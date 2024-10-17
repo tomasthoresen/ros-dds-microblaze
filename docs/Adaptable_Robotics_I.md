@@ -61,7 +61,10 @@ Here is an overview of the internal design blocks used in this tutorial.
 
 Here you can see the functionality reached from this tutorial.
 
-https://media.gitenterprise.xilinx.com/user/485/files/b90e8072-9ddb-43ad-859d-eb5b82b5e1f1
+
+
+https://media.gitenterprise.xilinx.com/user/485/files/33b57d68-7900-41a2-a7be-56f5539a6426
+
 
 
 
@@ -1159,7 +1162,11 @@ echo stop > /sys/class/remoteproc/remoteproc3/state
 In the end, this is what it should look like. Hope you made it this far! Thanks for trying this out, I hope it will help in your future endeavors.
 
 
-https://media.gitenterprise.xilinx.com/user/485/files/b90e8072-9ddb-43ad-859d-eb5b82b5e1f1
+
+
+https://media.gitenterprise.xilinx.com/user/485/files/41ad3fb5-e0b7-42dd-8b47-682dcc533817
+
+
 
 <video width="640" height="480" controls autoplay loop muted>
   <source src="../docs/images/2024-10-10.mp4" type="video/mp4">
@@ -1223,4 +1230,9 @@ USBTTL power 3.3v -> DO NOT CONNECT!
 <video width="640" height="480" controls autoplay loop muted>
   <source src="../docs/images/2024-10-11.mp4" type="video/mp4">
 </video>
+
+
+
+https://media.gitenterprise.xilinx.com/user/485/files/e5a13c38-a589-4501-bb20-8cb52c048dea
+
 
