@@ -52,9 +52,11 @@ This is what the final result should look like when you have gone through this t
   <source src="../docs/images/MicroROSonMicroBlaze.mp4" type="video/mp4">
 </video>
 
-https://media.gitenterprise.xilinx.com/user/485/files/d6115c1a-1813-43ac-8c87-86b11844771b
 
 
+
+
+https://media.gitenterprise.xilinx.com/user/485/files/5a9c356f-bf5e-4402-bd7a-37f77111d391
 
 
 
@@ -195,7 +197,9 @@ In the end, this is what it should look like. Hope you made it this far! Thanks 
   <source src="../docs/images/MicroROSonMicroBlaze2.mp4" type="video/mp4">
 </video>
 
-https://media.gitenterprise.xilinx.com/user/485/files/fb0f58d9-c898-4475-aab5-a43534f3ffaf
+
+
+https://media.gitenterprise.xilinx.com/user/485/files/f2c60d2c-a23f-42f9-b1fa-9b70ccb19d5b
 
 
 
