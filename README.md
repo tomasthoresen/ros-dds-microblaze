@@ -55,7 +55,10 @@ Functionality reached from tutorial #1 can be seen in the video below.
 </video>
 
 
-https://media.gitenterprise.xilinx.com/user/485/files/b90e8072-9ddb-43ad-859d-eb5b82b5e1f1
+
+https://media.gitenterprise.xilinx.com/user/485/files/ca020668-2ee6-4787-a8dd-4cca1c9bb18a
+
+
 
 Functionality reached from tutorial #2 can be seen in the video below.
 
@@ -65,7 +68,8 @@ Functionality reached from tutorial #2 can be seen in the video below.
 </video>
 
 
-https://media.gitenterprise.xilinx.com/user/485/files/d6115c1a-1813-43ac-8c87-86b11844771b
+https://media.gitenterprise.xilinx.com/user/485/files/43e6a2fb-55dc-41bc-b37f-d4db5c47f335
+
 
 <br>
 <br>
