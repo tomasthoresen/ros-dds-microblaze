@@ -1012,7 +1012,7 @@ This should result in a file called "mb_remoteproc.ko" in the current directory.
 Clone the repository and build the MicroBlaze executables. At this stage, this step might already be done. If so, please ignore this step.
 
 ```
-git clone --recursive https://gitenterprise.xilinx.com/SOM/ros-dds-microblaze
+git clone --recursive https://github.com/tomasthoresen/ros-dds-microblaze
 ```
 Source the Vitis build environment
 

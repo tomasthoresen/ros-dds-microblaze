@@ -144,6 +144,9 @@ The MicroROS applications need a MicroROS server to connect to, please follow th
 docker run -it --rm --net=host microros/micro-ros-agent:humble udp4 -p 8888
 ```
 
+Connect Ethernet PHY GEM2 and GEM3 and make sure they are connected to your local network. As mentioned earlier, this design is configured to use static IP addresses, so make sure you change them to your local network subnet and gateway.
+
+
 Copy the below files needed to the development board, if not already there.
 To get these files, the user will need to follow the tutorial - [AMD Kria:tm: adaptable Robotics I – The right engine for the right task.](../docs/Adaptable_Robotics_I.md)
 

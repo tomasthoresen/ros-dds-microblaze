@@ -18,8 +18,7 @@ This repository contains tutorials on getting started with the KRIA:tm: KR260 de
 2. [AMD Kria:tm: adaptable Robotics II – Unifying the communication protocol.](docs/Adaptable_Robotics_II.md)
 3. [~~AMD Kria:tm: adaptable Robotics III – Isolation, separation and APU realtime~~](docs/Adaptable_Robotics_III.md) - *In planning...*
 4. [~~AMD Kria:tm: adaptable Robotics IV – The awakening - adding camera, lidar and sensor~~](docs/Adaptable_Robotics_IV.md)- *In planning...*
-5. [~~AMD Kria:tm: adaptable Robotics V – Simulation – Getting a hardware model for simulation~~](docs/Adaptable_Robotics_V.md)- *In planning...*
-6. [~~AMD Kria:tm: adaptable Robotics VI – Simulation – hardware in the loop with KR260~~](docs/Adaptable_Robotics_VI.md)- *In planning...*
+5. [~~AMD Kria:tm: adaptable Robotics VI – Simulation – hardware in the loop with KR260~~](docs/Adaptable_Robotics_VI.md)- *In planning...*
 
 
 
