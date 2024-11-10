@@ -56,7 +56,8 @@ This is what the final result should look like when you have gone through this t
 
 
 
-https://media.gitenterprise.xilinx.com/user/485/files/5a9c356f-bf5e-4402-bd7a-37f77111d391
+
+https://github.com/user-attachments/assets/ae074b0e-7779-4779-8552-804b7e13d3c7
 
 
 
@@ -202,7 +203,9 @@ In the end, this is what it should look like. Hope you made it this far! Thanks 
 
 
 
-https://media.gitenterprise.xilinx.com/user/485/files/f2c60d2c-a23f-42f9-b1fa-9b70ccb19d5b
+
+
+https://github.com/user-attachments/assets/88853f34-03a0-4558-b22e-47ddeffa13a3
 
 
 
