@@ -63,7 +63,10 @@ Here you can see the functionality reached from this tutorial.
 
 
 
-https://media.gitenterprise.xilinx.com/user/485/files/33b57d68-7900-41a2-a7be-56f5539a6426
+
+
+https://github.com/user-attachments/assets/7dbc0a94-69c0-4672-9636-06ce87fc27f0
+
 
 
 
@@ -1164,7 +1167,10 @@ In the end, this is what it should look like. Hope you made it this far! Thanks 
 
 
 
-https://media.gitenterprise.xilinx.com/user/485/files/41ad3fb5-e0b7-42dd-8b47-682dcc533817
+
+
+https://github.com/user-attachments/assets/e3e41272-4a73-4ab2-8083-a8e3b436a06f
+
 
 
 
